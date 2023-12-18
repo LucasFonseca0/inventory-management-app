@@ -17,8 +17,7 @@ export class AppController {
 
   @Get('me')
   getMe(@CurrentUser() user: User) {
-    return {...user,
-    isAdmin:undefined};
+    return user;
   }
 }
  
