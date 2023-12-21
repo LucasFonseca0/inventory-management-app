@@ -7,7 +7,7 @@ interface StockItemModel {
   key: string;
   type: string; 
 }
-interface StockItem {
+export interface StockItem {
     [key: string]: any;
   }
 
