@@ -8,6 +8,7 @@ import { Stock, StockItem } from './entities/stock.entity';
 import { User } from 'src/user/entities/user.entity';
 import { CreateItemDto } from './dto/create-item.dto';
 import { ObjectId } from 'mongodb';
+import validateStockModel from './validations/validateStockModel.validation';
 
 @Injectable()
 export class StockService {
@@ -48,36 +49,7 @@ export class StockService {
       throw error;
     }
   }
-  validateStockModel(item: object, itemModel: StockItemModel[]): true | string[] {
-    const CopiedModel = [...itemModel];
-    const copiedItem = { ...item };
-    const errors: string[] = [];
   
-    CopiedModel.forEach((e,i) => {
-      if (!(e.key in item)) {
-        errors.push(`should have ${e.key} in Item`);
-      } else {
-        delete copiedItem[e.key];
-        delete CopiedModel[i];
-        if (typeof item[e.key] != e.type) {
-        errors.push(`the type in *${e.key}* is different from ModelType, it needs to be a *${e.type}*`);
-      } }
-      
-    });
-  
-    if (Object.keys(copiedItem).length !== 0) {
-      errors.push(`shouldn't have these items: ${Object.keys(copiedItem).join(', ')}`);
-    }
-  
-    if (errors.length !== 0) {
-      return errors;
-    }
-
-
-  
-  
-    return true;
-  }
   
   async createNewItem(
     stockId: string,
@@ -90,7 +62,7 @@ export class StockService {
       throw new Error('Stock not found');
     }
 
-    const isValidatedModel = this.validateStockModel(
+    const isValidatedModel = validateStockModel(
       createItemDto.item,
       stock.itemModel,
     );
