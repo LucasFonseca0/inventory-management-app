@@ -48,7 +48,7 @@ export class StockService {
       throw error;
     }
   }
-  validateStockModel(item: object, itemModel: StockItemModel[]): boolean | string[] {
+  validateStockModel(item: object, itemModel: StockItemModel[]): true | string[] {
     const CopiedModel = [...itemModel];
     const copiedItem = { ...item };
     const errors: string[] = [];
@@ -60,7 +60,7 @@ export class StockService {
         delete copiedItem[e.key];
         delete CopiedModel[i];
         if (typeof item[e.key] != e.type) {
-        errors.push(`the type in ${e.key} is different from ModelType, it needs to be a ${e.type}`);
+        errors.push(`the type in *${e.key}* is different from ModelType, it needs to be a *${e.type}*`);
       } }
       
     });
@@ -82,7 +82,8 @@ export class StockService {
   async createNewItem(
     stockId: string,
     createItemDto: CreateItemDto,
-  ): Promise<StockModel> {
+    user: User
+  ): Promise<StockModel|string[]> {
     const stock = await this.stockModel.findById(new ObjectId(stockId));
 
     if (!stock) {
@@ -93,12 +94,20 @@ export class StockService {
       createItemDto.item,
       stock.itemModel,
     );
-
-    this.logger.debug(isValidatedModel)
-
-    const updatedStock = await stock;
-    this.logger.debug(`Item added to stock: ${createItemDto}`);
-
+    
+    if (isValidatedModel !== true){
+      return isValidatedModel
+    }
+    //it add the new item
+    stock.items.push(createItemDto.item)
+    //Add a id for the new item, if this is the first item the id will be = 0
+    stock.items.length != 1 ? (stock.items[stock.items.length -1 ].id = stock.items[stock.items.length -2 ].id +1): (stock.items[stock.items.length -1 ].id = 0)
+    //add a new data updated 
+    const currentDate = new Date().toString()
+    stock.lastUpdate = currentDate + `by ${user.name}`
+    //save to the database
+    const updatedStock = await stock.save();
+    //return the object
     return updatedStock.toObject();
   }
 

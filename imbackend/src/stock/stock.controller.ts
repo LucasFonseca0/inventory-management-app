@@ -37,8 +37,9 @@ export class StockController {
   createNewItem(
     @Param('id') id: string,
     @Body() createItemDto: CreateItemDto,
-  ): Promise<StockModel> {
-    return this.stockService.createNewItem(id, createItemDto);
+    @CurrentUser() user: User | undefined
+  ): Promise<StockModel|string[]> {
+    return this.stockService.createNewItem(id, createItemDto,user);
   }
   @Patch()
   modifyItems() {
