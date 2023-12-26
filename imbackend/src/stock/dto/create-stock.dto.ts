@@ -11,5 +11,4 @@ export class CreateStockDto extends Stock {
   name: string;
   @IsArray()
   itemModel: StockItemModel[];
-
 }

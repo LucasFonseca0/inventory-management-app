@@ -14,6 +14,7 @@ import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { User } from 'src/user/entities/user.entity';
 import { StockModel } from './models/StockModel';
 import { StockItem } from './entities/stock.entity';
+import { CreateItemDto } from './dto/create-item.dto';
 
 @Controller('stock')
 export class StockController {
@@ -30,14 +31,17 @@ export class StockController {
   @Get('Stocks')
   findAllStocks() {
     return this.stockService.findAllStocks();
-  } 
+  }
 
-  @Patch(':id/createItem',)
-  createNewItem(@Param("id") id:string,@Body() updateStockDto:UpdateStockDto): Promise<StockModel> {
-    return this.stockService.createNewItem(id,updateStockDto)
+  @Patch(':id/createItem')
+  createNewItem(
+    @Param('id') id: string,
+    @Body() createItemDto: CreateItemDto,
+  ): Promise<StockModel> {
+    return this.stockService.createNewItem(id, createItemDto);
   }
   @Patch()
   modifyItems() {
-    return this.stockService.modifyItems()
+    return this.stockService.modifyItems();
   }
 }
