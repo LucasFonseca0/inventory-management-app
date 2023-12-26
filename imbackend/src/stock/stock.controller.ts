@@ -33,16 +33,21 @@ export class StockController {
     return this.stockService.findAllStocks();
   }
 
-  @Patch(':id/createItem')
+  @Patch('createItem/:id')
   createNewItem(
     @Param('id') id: string,
     @Body() createItemDto: CreateItemDto,
     @CurrentUser() user: User | undefined
-  ): Promise<StockModel|string[]> {
+  ) {
     return this.stockService.createNewItem(id, createItemDto,user);
   }
-  @Patch()
-  modifyItems() {
-    return this.stockService.modifyItems();
+  @Patch('modifyItem/:stockId/:itemId')
+  modifyItems(
+    @Param('stockId') stockId: string,
+    @Param('itemId') itemId: number,
+    @Body() updateItem: object,
+    @CurrentUser() user: User | undefined
+  ) {
+    return this.stockService.modifyItems(stockId,itemId,updateItem,user);
   }
 }

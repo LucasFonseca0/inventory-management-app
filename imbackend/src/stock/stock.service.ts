@@ -49,13 +49,12 @@ export class StockService {
       throw error;
     }
   }
-  
-  
+
   async createNewItem(
     stockId: string,
     createItemDto: CreateItemDto,
-    user: User
-  ): Promise<StockModel|string[]> {
+    user: User,
+  ): Promise<StockModel | string[]> {
     const stock = await this.stockModel.findById(new ObjectId(stockId));
 
     if (!stock) {
@@ -66,22 +65,57 @@ export class StockService {
       createItemDto.item,
       stock.itemModel,
     );
-    
-    if (isValidatedModel !== true){
-      return isValidatedModel
+
+    if (isValidatedModel !== true) {
+      return isValidatedModel;
     }
     //it add the new item
-    stock.items.push(createItemDto.item)
+    stock.items.push(createItemDto.item);
     //Add a id for the new item, if this is the first item the id will be = 0
-    stock.items.length != 1 ? (stock.items[stock.items.length -1 ].id = stock.items[stock.items.length -2 ].id +1): (stock.items[stock.items.length -1 ].id = 0)
-    //add a new data updated 
-    const currentDate = new Date().toString()
-    stock.lastUpdate = currentDate + `by ${user.name}`
+    stock.items.length != 1
+      ? (stock.items[stock.items.length - 1].id =
+          stock.items[stock.items.length - 2].id + 1)
+      : (stock.items[stock.items.length - 1].id = 0);
+    //add a new data updated
+    const currentDate = new Date().toString();
+    stock.lastUpdate = currentDate + `by ${user.name}`;
     //save to the database
     const updatedStock = await stock.save();
     //return the object
     return updatedStock.toObject();
   }
 
-  modifyItems() {}
+  async modifyItems(
+    stockId: string,
+    itemId: number,
+    updateItem: object,
+    user: User | undefined,
+  ): Promise<StockModel | string[]> {
+    const stock = await this.stockModel.findById(new ObjectId(stockId));
+
+    if (!stock) {
+      throw new Error('Stock not found');
+    }
+    const index = stock.items.findIndex((item) => item.id === itemId);
+
+    if (index === -1) {
+      throw new Error(`Item with id ${itemId} not found in stock`);
+    }
+    const isValidatedModel = validateStockModel(updateItem, stock.itemModel);
+    if (isValidatedModel !== true) {
+      return isValidatedModel;
+    }
+    //update the item
+    stock.items[index] = {
+      ...updateItem,
+      id: itemId,
+    };
+    //add a new data updated
+    const currentDate = new Date().toString();
+    stock.lastUpdate = currentDate + `by ${user.name}`;
+    //save to the database
+    const updatedStock = await stock.save();
+    //return the object
+    return updatedStock.toObject();
+  }
 }
