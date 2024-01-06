@@ -7,7 +7,6 @@ const PrivateRoute = ({ element }) => {
     const token = localStorage.getItem('accessToken');
     return !!token;
   };
-
   return isTokenPresent() ? element : <Navigate to="/login" />;
 };
 

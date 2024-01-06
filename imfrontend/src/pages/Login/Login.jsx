@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import styles from './styles/Login.module.css';
 import { MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBIcon, MDBInput } from 'mdb-react-ui-kit';
-import SubmitButton from '../../components/submitButton';
+import SubmitButton from '../../components/submitButton/submitButton'
 import authService from './services/authService';
 import { useNavigate  } from 'react-router-dom';
 

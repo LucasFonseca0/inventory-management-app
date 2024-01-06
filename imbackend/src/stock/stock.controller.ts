@@ -15,6 +15,7 @@ import { User } from 'src/user/entities/user.entity';
 import { StockModel } from './models/StockModel';
 import { StockItem } from './entities/stock.entity';
 import { CreateItemDto } from './dto/create-item.dto';
+import { IsAdmin } from 'src/auth/decorators/IsAdmin.decorator';
 
 @Controller('stock')
 export class StockController {
@@ -23,11 +24,20 @@ export class StockController {
   @Post()
   createNewStock(
     @Body() createStockDto: CreateStockDto,
-    @CurrentUser() user: User | undefined,
-  ) {
-    return this.stockService.createNewStock(createStockDto, user);
-  }
+    @IsAdmin() isAdmin:boolean,
 
+    ) {
+      return this.stockService.createNewStock(createStockDto,isAdmin);
+    }
+    
+    @Delete('deleteStock/:stockId')
+    deleteStock(
+    @IsAdmin() isAdmin:boolean,
+    @Param('stockId') stockId: string,
+    @CurrentUser() user: User | undefined
+  ) {
+    return this.stockService.deleteStock(stockId,user,isAdmin) 
+  }
   @Get('Stocks')
   findAllStocks() {
     return this.stockService.findAllStocks();
@@ -38,7 +48,7 @@ export class StockController {
     @Param('id') id: string,
     @Body() createItemDto: CreateItemDto,
     @CurrentUser() user: User | undefined
-  ) {
+  ) { 
     return this.stockService.createNewItem(id, createItemDto,user);
   }
   @Patch('modifyItem/:stockId/:itemId')
@@ -49,5 +59,13 @@ export class StockController {
     @CurrentUser() user: User | undefined
   ) {
     return this.stockService.modifyItems(stockId,itemId,updateItem,user);
+  }
+  @Patch('deleteItem/:stockId/:itemId')
+  deleteItem(
+    @Param('stockId') stockId: string,
+    @Param('itemId') itemId: number,
+    @CurrentUser() user: User | undefined
+  ) {
+    return this.stockService.deleteItem(stockId,itemId,user)
   }
 }

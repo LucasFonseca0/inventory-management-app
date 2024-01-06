@@ -18,10 +18,11 @@ export class StockService {
 
   async createNewStock(
     createStockDto: CreateStockDto,
-    user: User,
+    isAdmin:boolean
   ): Promise<StockModel> {
+    isAdmin
     const currentDate = new Date().toString();
-    if (user.isAdmin) {
+    
       const newStock = await this.stockModel.create({
         ...createStockDto,
         items: [],
@@ -31,9 +32,19 @@ export class StockService {
       this.logger.debug(`New stock created: ${newStock}`);
 
       return newStock;
-    } else {
-      throw new Error('The User is not an admin');
-    }
+    
+  }
+
+  async deleteStock( stockId: string,
+    user: User | undefined,
+    isAdmin:boolean){
+    isAdmin
+    const stock =  await this.stockModel.findByIdAndDelete(new ObjectId(stockId))
+
+    if( !stock ) throw new Error("stock not Found")
+
+    
+    return `The stock has been successfully deleted`
   }
 
   async findAllStocks(): Promise<Partial<StockModel>[]> {
@@ -117,5 +128,35 @@ export class StockService {
     const updatedStock = await stock.save();
     //return the object
     return updatedStock.toObject();
+  }
+
+  async deleteItem(stockId: string,
+   itemId: number,
+  user: User | undefined){
+    try{
+    const stock = await this.stockModel.findById(new ObjectId(stockId));
+
+    if (!stock) {
+      throw new Error('Stock not found');
+    }
+    const index = stock.items.findIndex((item) => item.id === itemId);
+
+    if (index === -1) {
+      throw Error(`Item with id ${itemId} not found in stock`);
+    }
+    this.logger.debug(stock)
+    stock.items.splice(index,1)
+    //add a new data updated
+    const currentDate = new Date().toString();
+    stock.lastUpdate = currentDate + `by ${user.name}`;
+    //save to the database
+    const updatedStock =  await stock.save();
+    this.logger.debug(updatedStock)
+    //return the object
+    return updatedStock;
+  }catch(error){
+      this.logger.error(`Error deleting item: ${error.message}`);
+      return  {error: error.message}
+    }
   }
 }
