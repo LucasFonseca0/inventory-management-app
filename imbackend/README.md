@@ -42,4 +42,16 @@
 **Body:** New details of the item.  
 **Response:** Returns the updated details of the stock after modifying the item.
 
+## DELETE /stock/deleteStock/:stockId
+**Description:** Deletes a stock.  
+**Authentication:** Requires user authentication (admin).  
+**Parameters:** ID of the stock to be deleted.  
+**Response:** Returns a confirmation message upon successful deletion.
+
+## PATCH /stock/deleteItem/:stockId/:itemId
+**Description:** Deletes an item from a stock.  
+**Authentication:** Requires user authentication.  
+**Parameters:** Stock ID and item ID to be deleted.  
+**Response:** Returns the updated details of the stock after deleting the item.
+
 This documentation provides an overview of the available endpoints in the application and their respective functionalities. Make sure to follow the authentication guidelines to access specific endpoints.
