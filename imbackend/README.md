@@ -25,7 +25,7 @@
 
 ## GET /stock/Stocks
 **Description:** Returns a list of available stocks.  
-**Authentication:** Public (no authentication required).  
+**Authentication:** Requires user authentication.  
 **Response:** Returns a list containing the ID, name, and last update of each stock.
 
 ## PATCH /stock/createItem/:id
