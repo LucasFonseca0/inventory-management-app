@@ -1,4 +1,4 @@
-# Inventory Management App
+# Simple StockManager
 
 ## Description
 
