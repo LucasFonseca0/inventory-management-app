@@ -1,35 +1,56 @@
-import React, { useEffect, useState } from 'react';
-import getUserData from '../../services/getUserData';
-import OffcanvasExample from '../../components/navbar/navbar';
-import { useNavigate } from 'react-router-dom';
-import Loading from '../../components/loading/loading.component';
-import styles from './styles/home.module.css';
+import Loading from "../../components/loading/loading.component";
+import YourStocksTitle from "./homeComponents/YourStocksTitle/YourStocksTitle";
+import getAllStocks from "../../services/getAllStocks.service";
+import StockCard from "./homeComponents/StockCard/StockCard";
+import TextForCreateaNewStock from "./homeComponents/TextForCreateaNewStock/TextForCreateaNewStock";
+
+import React, { useEffect, useState } from "react";
+
+import styles from "./styles/home.module.css";
 
 function Home() {
-  const [user, setUser] = useState();
-  const isLoading = user === undefined
+  const [stocks, setStocks] = useState();
+  const isLoadingStocks = stocks === undefined;
 
+  //getStocks
   useEffect(() => {
     const fetchData = async () => {
-      const userData = await getUserData();
-      
-      setUser(userData)
+      const stocksData = await getAllStocks();
+
+      setStocks(stocksData)
     };
 
     fetchData();
   }, []);
 
+  function showStocks() {
+    if (stocks.length !== 0) {
+      return stocks.map((stock) => (
+        <StockCard
+          key={stock._id}
+          stockId={stock._id}
+          stockName={stock.name}
+          lastUpdated={stock.lastUpdate}
+        />
+      ));
+    }
+
+    return <TextForCreateaNewStock />;
+  }
+
   return (
     <div>
-      {isLoading && <div className={styles.loading}>
-        <Loading />
-      </div>}
-      {user && (
-        <>
-          <OffcanvasExample UserName={user.name.split(' ')[0]} />
-          <h1>{user.name}</h1>
-        </>
-      )}
+      <>
+        <YourStocksTitle />
+        {isLoadingStocks && (
+          <div className={styles.loading}>
+            <Loading />
+          </div>
+        )}
+        {stocks && (
+          <div className={styles.showStockContainer}>{showStocks()}</div>
+        )}
+      </>
     </div>
   );
 }

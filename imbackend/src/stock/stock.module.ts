@@ -14,3 +14,4 @@ import { ScheduleModule } from '@nestjs/schedule';
   providers: [StockService],
 })
 export class StockModule {}
+ 

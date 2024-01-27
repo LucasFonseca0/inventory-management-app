@@ -1,10 +1,11 @@
 // Login.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './styles/Login.module.css';
 import { MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBIcon, MDBInput } from 'mdb-react-ui-kit';
 import SubmitButton from '../../components/submitButton/submitButton'
-import authService from './services/authService';
+import authService from '../../services/authService.service';
 import { useNavigate  } from 'react-router-dom';
+import getUserData from '../../services/getUserData.service';
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -13,6 +14,22 @@ function Login() {
   });
 
   const navigate = useNavigate();  
+
+  const isTokenPresent = () => {
+    const token = localStorage.getItem('accessToken');
+    return !!token;
+  }
+  useEffect(() => {
+    const fetchData = async () => {
+      const UserData = await getUserData();
+      if(isTokenPresent() && UserData){
+        navigate("/");
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
 
   async function HandleSubmit() {
     try {
@@ -51,7 +68,7 @@ function Login() {
               <MDBCardBody className="d-flex flex-column">
                 <div className="d-flex flex-row mt-2">
                   <MDBIcon fas icon="cubes fa-3x me-3" style={{ color: '#ff6219' }} />
-                  <span className="h1 fw-bold mb-0">Logo</span>
+                  <span className="h1 fw-bold mb-0">Simple StockManager</span>
                 </div>
                 <h5 className="fw-normal my-4 pb-3" style={{ letterSpacing: '1px' }}>
                   Sign into your account

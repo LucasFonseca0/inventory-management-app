@@ -18,9 +18,8 @@ export class StockService {
 
   async createNewStock(
     createStockDto: CreateStockDto,
-    isAdmin:boolean
+
   ): Promise<StockModel> {
-    isAdmin
     const currentDate = new Date().toString();
     
       const newStock = await this.stockModel.create({
@@ -35,10 +34,9 @@ export class StockService {
     
   }
 
-  async deleteStock( stockId: string,
-    user: User | undefined,
-    isAdmin:boolean){
-    isAdmin
+  async deleteStock( stockId: string
+    ){
+    
     const stock =  await this.stockModel.findByIdAndDelete(new ObjectId(stockId))
 
     if( !stock ) throw new Error("stock not Found")
@@ -53,12 +51,18 @@ export class StockService {
         {},
         '_id name lastUpdate',
       );
-      this.logger.debug(`Stocks: ${NameAndIdStocks}`);
       return NameAndIdStocks;
     } catch (error) {
-      this.logger.error(`Error retrieving the stocks: ${error.message}`);
       throw error;
     }
+  }
+  async findStockById(stockId:string):Promise<StockModel>{
+
+    const stock = await this.stockModel.findById(new ObjectId(stockId));
+
+
+
+    return stock
   }
 
   async createNewItem(
@@ -74,10 +78,10 @@ export class StockService {
 
     const isValidatedModel = validateStockModel(
       createItemDto.item,
-      stock.itemModel,
+      stock.itemModel, 
     );
 
-    if (isValidatedModel !== true) {
+    if (isValidatedModel !== true) { 
       return isValidatedModel;
     }
     //it add the new item
@@ -107,7 +111,7 @@ export class StockService {
     if (!stock) {
       throw new Error('Stock not found');
     }
-    const index = stock.items.findIndex((item) => item.id === itemId);
+    const index = stock.items.findIndex((item) => Number(item.id) === Number(itemId));
 
     if (index === -1) {
       throw new Error(`Item with id ${itemId} not found in stock`);
@@ -139,10 +143,13 @@ export class StockService {
     if (!stock) {
       throw new Error('Stock not found');
     }
-    const index = stock.items.findIndex((item) => item.id === itemId);
+    const index = stock.items.findIndex((item) => Number(item.id) === Number(itemId));
+
+
 
     if (index === -1) {
-      throw Error(`Item with id ${itemId} not found in stock`);
+      throw Error(`Item with id ${itemId} not found in stock id: ${stockId}`);
+
     }
     this.logger.debug(stock)
     stock.items.splice(index,1)
@@ -151,12 +158,13 @@ export class StockService {
     stock.lastUpdate = currentDate + `by ${user.name}`;
     //save to the database
     const updatedStock =  await stock.save();
-    this.logger.debug(updatedStock)
+    
     //return the object
     return updatedStock;
   }catch(error){
-      this.logger.error(`Error deleting item: ${error.message}`);
-      return  {error: error.message}
-    }
+    this.logger.error(`Error deleting item: ${error.message}`);
+    throw error;
+  }
+  
   }
 }

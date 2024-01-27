@@ -3,3 +3,11 @@
   padding: 0;
   border: 0;
 }
+
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #A3B7CC; 
+  --text-color: #3D5166; 
+  --link-color: #3D6A99; 
+  --highlight-color: #2978CC; 
+}

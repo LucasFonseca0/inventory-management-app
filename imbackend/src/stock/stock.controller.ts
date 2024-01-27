@@ -9,11 +9,8 @@ import {
 } from '@nestjs/common';
 import { StockService } from './stock.service';
 import { CreateStockDto, StockItemModel } from './dto/create-stock.dto';
-import { UpdateStockDto } from './dto/update-stock.dto';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { User } from 'src/user/entities/user.entity';
-import { StockModel } from './models/StockModel';
-import { StockItem } from './entities/stock.entity';
 import { CreateItemDto } from './dto/create-item.dto';
 import { IsAdmin } from 'src/auth/decorators/IsAdmin.decorator';
 
@@ -21,26 +18,31 @@ import { IsAdmin } from 'src/auth/decorators/IsAdmin.decorator';
 export class StockController {
   constructor(private readonly stockService: StockService) {}
 
-  @Post()
+  @Post('createStock') 
   createNewStock(
     @Body() createStockDto: CreateStockDto,
-    @IsAdmin() isAdmin:boolean,
 
     ) {
-      return this.stockService.createNewStock(createStockDto,isAdmin);
+      return this.stockService.createNewStock(createStockDto);
     }
     
     @Delete('deleteStock/:stockId')
     deleteStock(
-    @IsAdmin() isAdmin:boolean,
     @Param('stockId') stockId: string,
-    @CurrentUser() user: User | undefined
   ) {
-    return this.stockService.deleteStock(stockId,user,isAdmin) 
+    return this.stockService.deleteStock(stockId) 
   }
   @Get('Stocks')
   findAllStocks() {
     return this.stockService.findAllStocks();
+  }
+
+  @Get(":stockId")
+  findStockById(
+    @Param("stockId") stockId: string
+    
+  ){
+    return this.stockService.findStockById(stockId)
   }
 
   @Patch('createItem/:id')

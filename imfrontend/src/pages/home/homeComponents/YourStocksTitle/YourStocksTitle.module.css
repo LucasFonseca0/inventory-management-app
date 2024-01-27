@@ -1,0 +1,10 @@
+.YourStocksTitleContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2em;
+    max-width: 600px;
+    border-bottom: 1px solid black;
+    padding: 0;
+    color: var(--primary-color);
+}

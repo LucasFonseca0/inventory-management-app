@@ -1,0 +1,74 @@
+
+.stockContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    
+    margin-bottom: 20px;
+}
+.DeleteStock{
+   
+    position: absolute;
+    width: 10%;
+    min-width: 50px;
+    flex-wrap: nowrap;
+    left: 4%;
+
+}
+
+.OrderTableDropdown button{
+    margin: 1em;
+    min-width: 100px;
+    width: 20%;
+
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-around;
+}
+.buttons>:last-child{
+    height: 100%;
+    transform: translateY(50%);
+}
+
+
+.stockTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--primary-color);
+}
+
+.tableContainer {
+    padding: 1%;
+    max-width: 100vw;
+    overflow-x: auto;
+
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.stockTable {
+    margin-top: 20px;
+    border-collapse: collapse; 
+    border-spacing: 0 10px;
+
+    cursor: pointer;
+}
+
+.tableHeader,
+.tableData {
+    border: 1px solid #ddd;
+    background-color: #fff;
+    text-align: center;
+    vertical-align: middle; 
+    transition: background-color 0.3s ease;
+}
+
+.tableHeader:hover,
+.tableData:hover {
+    background-color: #f0f0f0;
+}
