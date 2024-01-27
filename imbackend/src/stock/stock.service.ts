@@ -122,7 +122,7 @@ export class StockService {
     }
     //update the item
     stock.items[index] = {
-      ...updateItem,
+      ...updateItem, 
       id: itemId,
     };
     //add a new data updated

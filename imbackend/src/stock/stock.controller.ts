@@ -27,7 +27,7 @@ export class StockController {
     }
     
     @Delete('deleteStock/:stockId')
-    deleteStock(
+    deleteStock( 
     @Param('stockId') stockId: string,
   ) {
     return this.stockService.deleteStock(stockId) 

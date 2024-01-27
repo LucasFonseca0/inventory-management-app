@@ -9,8 +9,7 @@ This is the frontend of the Inventory Management App. This application allows us
 This project was created with:
 
 - React.js
-- Redux
-- Material-UI
+- React Bootstrap 
 
 ## Features
 

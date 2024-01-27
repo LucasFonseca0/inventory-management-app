@@ -25,7 +25,7 @@ export default function validateStockModel(item: object, itemModel: StockItemMod
       return errors;
     }
 
-
+ 
   
   
     return true;
