@@ -1,70 +1,86 @@
-# Getting Started with Create React App
+# Inventory Management App - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+This is the frontend of the Inventory Management App. This application allows users to manage their stocks efficiently and effectively.
 
-In the project directory, you can run:
+## Technologies
 
-### `npm start`
+This project was created with:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- React.js
+- Redux
+- Material-UI
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
 
-### `npm test`
+- User authentication
+- Creation and management of stocks
+- Addition, modification, and deletion of items in a stock
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `npm run build`
+To install and run this project locally, follow these steps:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+git clone https://github.com/LucasFonseca0/inventory-management-app.git
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Getting Started
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. **Navigate to the frontend directory:**
+    ```bash
+    cd inventory-management-app/imfrontend
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. **Install the dependencies:**
+    ```bash
+    npm install
+    ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. **Start the development server:**
+    ```bash
+    npm start
+    ```
+    Now, the application should be running at `localhost:3000`.
 
-## Learn More
+## Dependencies
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This project uses the following dependencies:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- "@testing-library/jest-dom": "^5.17.0"
+- "@testing-library/react": "^13.4.0"
+- "@testing-library/user-event": "^13.5.0"
+- "axios": "^1.6.2"
+- "bootstrap": "^5.3.2"
+- "class-validator": "^0.14.0"
+- "formik": "^2.4.5"
+- "mdb-react-ui-kit": "^7.0.0"
+- "moment": "^2.30.1"
+- "react": "^18.2.0"
+- "react-autosuggest": "^10.1.0"
+- "react-bootstrap": "^2.9.1"
+- "react-dom": "^18.2.0"
+- "react-icons": "^4.12.0"
+- "react-router-dom": "^6.20.1"
+- "react-scripts": "5.0.1"
+- "react-table": "^7.8.0"
+- "react-toastify": "^9.1.3"
+- "web-vitals": "^2.1.4"
+- "yup": "^1.3.2"
 
-### Code Splitting
+## Contribution
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Contributions are always welcome! Feel free to open an issue or submit a pull request.
 
-### Analyzing the Bundle Size
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+This project is licensed under the MIT License.
+nao
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

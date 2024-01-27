@@ -17,16 +17,28 @@
 **Authentication:** Requires user authentication.  
 **Response:** Returns details of the authenticated user.
 
-## POST /stock
+## POST /stock/createStock
 **Description:** Creates a new stock.  
-**Authentication:** Requires user authentication (admin).  
+**Authentication:** Requires user authentication.  
 **Body:** Details of the new stock.  
 **Response:** Returns details of the newly created stock.
+
+## DELETE /stock/deleteStock/:stockId
+**Description:** Deletes a stock.  
+**Authentication:** Requires user authentication.  
+**Parameters:** ID of the stock to be deleted.  
+**Response:** Returns a confirmation message upon successful deletion.
 
 ## GET /stock/Stocks
 **Description:** Returns a list of available stocks.  
 **Authentication:** Requires user authentication.  
 **Response:** Returns a list containing the ID, name, and last update of each stock.
+
+## GET /stock/:stockId
+**Description:** Returns a stock by ID.  
+**Authentication:** Requires user authentication.  
+**Parameters:** ID of the stock to be returned.  
+**Response:** Returns details of the stock.
 
 ## PATCH /stock/createItem/:id
 **Description:** Adds a new item to an existing stock.  
@@ -41,12 +53,6 @@
 **Parameters:** Stock ID and item ID to be modified.  
 **Body:** New details of the item.  
 **Response:** Returns the updated details of the stock after modifying the item.
-
-## DELETE /stock/deleteStock/:stockId
-**Description:** Deletes a stock.  
-**Authentication:** Requires user authentication (admin).  
-**Parameters:** ID of the stock to be deleted.  
-**Response:** Returns a confirmation message upon successful deletion.
 
 ## PATCH /stock/deleteItem/:stockId/:itemId
 **Description:** Deletes an item from a stock.  
