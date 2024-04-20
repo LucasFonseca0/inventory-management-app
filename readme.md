@@ -1,4 +1,4 @@
-# Simple StockManager
+#StockManager
 
 ## Description
 
