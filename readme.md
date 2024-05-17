@@ -2,7 +2,7 @@
 
 ## Description
 
-This is the inventory management app. The aim of this app is to provide a simple inventory manager that anyone can use with ease. It is especially geared towards small businesses.
+This is the inventory management app. The aim of this app is to provide inventory manager that anyone can use with ease. It is especially geared towards small businesses.
 
 ## Technologies
 
