@@ -4,7 +4,8 @@
 
 This is the inventory management app. The aim of this app is to provide inventory manager that anyone can use with ease. It is especially geared towards small businesses.
 
-![image](https://github.com/LucasFonseca0/inventory-management-app/assets/151788899/b20b07a0-8ca8-4070-8e9c-8d1b80f8b11c)
+![image](https://github.com/LucasFonseca0/inventory-management-app/assets/151788899/5f7e094b-ad7a-40b5-b709-df9722dccfc9)
+
 
 
 ## Technologies
